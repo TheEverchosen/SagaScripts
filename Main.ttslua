@@ -1,0 +1,124 @@
+function onLoad()
+end
+
+function onUpdate()
+end
+
+function onScriptingButtonDown(index, player_color)
+  if index == 1 then updateDecalParameters(Player[player_color].getHoverObject(), 0) addDecalSet(Player[player_color].getHoverObject()) end
+  if index == 2 then updateDecalParameters(Player[player_color].getHoverObject(), 1) addDecalSet(Player[player_color].getHoverObject()) end
+  if index == 3 then Global.setDecals({}) end
+end
+
+function updateDecalParameters(targetObject, targetSize)    -- for small base pass targetSize 0, for biggger - 1
+  if targetSize == 0 then
+  paramsL = {
+    name     = "2470x2470",
+    url      = "http://cloud-3.steamusercontent.com/ugc/1002556126520149186/14A80C01C4106270078E97C3B34B12323254A9D3/",
+    position = targetObject.getPosition(),
+    rotation = {90, 90, 90},
+    scale    = {24.7, 24.7, 24.7},
+  }
+
+  paramsM = {
+    name     = "1270x1270",
+    url      = "http://cloud-3.steamusercontent.com/ugc/1002556187902928515/DFFFF06ACE055B6A103439B42A8EC00B31E0E336/",
+    position = targetObject.getPosition(),
+    rotation = {90, 90, 90},
+    scale    = {12.7, 12.7, 12.7},
+  }
+
+  paramsS = {
+    name     = "870x870",
+    url      = "http://cloud-3.steamusercontent.com/ugc/1002556187902925070/E4E5860445A6CBE6FDD9C8388309184714E4DB15/",
+    position = targetObject.getPosition(),
+    rotation = {90, 90, 90},
+    scale    = {8.7, 8.7, 8.7},
+  }
+
+  paramsVS = {
+    name     = "470x470",
+    url      = "http://cloud-3.steamusercontent.com/ugc/1002556187902927429/A56007F9B866DF97ACEC41F3A8C11C79EA5D44DC/",
+    position = targetObject.getPosition(),
+    rotation = {90, 90, 90},
+    scale    = {4.7, 4.7, 4.7},
+  }
+
+  paramsBase = {
+    name     = "Base70",
+    url      = "http://cloud-3.steamusercontent.com/ugc/1002556052464226360/EF6F2518FD793FE7AB9EFA3EEA25395E225D6D9D/",
+    position = targetObject.getPosition(),
+    rotation = {90, 90, 90},
+    scale    = {0.7, 0.7, 0.7},
+  }
+end
+
+  if targetSize == 1 then
+    paramsL = {
+      name     = "2470x2470",
+      url      = "http://cloud-3.steamusercontent.com/ugc/1002556126520149186/14A80C01C4106270078E97C3B34B12323254A9D3/",
+      position = targetObject.getPosition(),
+      rotation = {90, 90, 90},
+      scale    = {25.2, 25.2, 25.2},
+    }
+
+    paramsM = {
+      name     = "1270x1270",
+      url      = "http://cloud-3.steamusercontent.com/ugc/1002556187902928515/DFFFF06ACE055B6A103439B42A8EC00B31E0E336/",
+      position = targetObject.getPosition(),
+      rotation = {90, 90, 90},
+      scale    = {13.2, 13.2, 13.2},
+    }
+
+    paramsS = {
+      name     = "870x870",
+      url      = "http://cloud-3.steamusercontent.com/ugc/1002556187902925070/E4E5860445A6CBE6FDD9C8388309184714E4DB15/",
+      position = targetObject.getPosition(),
+      rotation = {90, 90, 90},
+      scale    = {9.2, 9.2, 9.2},
+    }
+
+    paramsVS = {
+      name     = "470x470",
+      url      = "http://cloud-3.steamusercontent.com/ugc/1002556187902927429/A56007F9B866DF97ACEC41F3A8C11C79EA5D44DC/",
+      position = targetObject.getPosition(),
+      rotation = {90, 90, 90},
+      scale    = {5.2, 5.2, 5.2},
+    }
+
+    paramsBase = {
+      name     = "Base70",
+      url      = "http://cloud-3.steamusercontent.com/ugc/1002556052464226360/EF6F2518FD793FE7AB9EFA3EEA25395E225D6D9D/",
+      position = targetObject.getPosition(),
+      rotation = {90, 90, 90},
+      scale    = {1.2, 1.2, 1.2},
+    }
+  end
+
+  paramsBase = crutchVectorManipulator(paramsBase, true, 6)
+  paramsVS = crutchVectorManipulator(paramsVS, true, 4)
+  paramsS = crutchVectorManipulator(paramsS, true, 3)
+  paramsM = crutchVectorManipulator(paramsM, true, 2)
+  paramsL = crutchVectorManipulator(paramsL, true, 1)
+
+
+end
+
+function addDecalSet(targetObject)
+  Global.addDecal(paramsBase)
+  Global.addDecal(paramsVS)
+  Global.addDecal(paramsS)
+  Global.addDecal(paramsM)
+  Global.addDecal(paramsL)
+end
+
+                                                                -- Manipulate decal's vector z coordinate through this function (for multi-layering)!
+function crutchVectorManipulator(inputParam, boolean, multiplier)
+  result = 0
+  inputPosition = inputParam["position"]
+    if boolean==true then result = {["x"] = inputPosition["x"], ["y"] = (inputPosition["y"]  + 0.01 * multiplier), ["z"] = inputPosition["z"]}
+    else result = {["x"] = inputPosition["x"], ["y"] = (inputPosition["y"]  - 0.1 * multiplier), ["z"] = inputPosition["z"]}
+end
+  inputParam["position"] = result
+    return inputParam
+end
